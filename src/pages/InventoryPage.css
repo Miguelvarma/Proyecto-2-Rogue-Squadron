@@ -1,0 +1,40 @@
+.inv-page {
+  max-width: 1200px;   /* ancho máximo de la página */
+  margin: 0 auto;      /* centra el contenido */
+  padding: 40px 20px;
+}
+
+.inv-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+}
+
+.inv-page__subtitle {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #8a8070;
+  margin-bottom: 0.3rem;
+}
+
+.inv-page__title {
+  font-size: 1.6rem;
+  color: #c9a84c;
+  margin: 0;
+}
+
+.inv-page__count {
+  font-size: 0.9rem;
+  color: #8a8070;
+  border: 1px solid #252840;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  background: rgba(10,11,16,0.7);
+}
+.inv-page__count strong {
+  color: #c9a84c;
+}

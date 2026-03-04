@@ -1,0 +1,102 @@
+.inv-card {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #252840;
+  background: #0f1018;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  aspect-ratio: 2 / 3;
+  position: relative;
+  isolation: isolate;
+}
+
+.inv-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: #6b5a28;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.7), 0 0 20px rgba(201,168,76,0.08);
+  z-index: 2;
+}
+
+.inv-card__topline {
+  height: 3px;
+  background: #8a9ba8;
+}
+.inv-card__topline[data-rarity="common"] { background:#8a9ba8; }
+.inv-card__topline[data-rarity="rare"] { background:#5a9fd4; }
+.inv-card__topline[data-rarity="epic"] { background:#9b6fd0; }
+.inv-card__topline[data-rarity="legendary"] {
+  background: linear-gradient(90deg,#7a5a1a,#c9a84c,#e8c96a,#c9a84c,#7a5a1a);
+}
+
+.inv-card__art {
+  height: 60%;
+  background: #161824;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.inv-card__art[data-type="hero"] { background: radial-gradient(circle at 50% 120%, rgba(199,51,71,0.35), #161824 70%); }
+.inv-card__art[data-type="spell"] { background: radial-gradient(circle at 50% 120%, rgba(58,110,168,0.35), #161824 70%); }
+.inv-card__art[data-type="weapon"] { background: radial-gradient(circle at 50% 120%, rgba(155,35,53,0.35), #161824 70%); }
+.inv-card__art[data-type="armor"] { background: radial-gradient(circle at 50% 120%, rgba(45,122,79,0.35), #161824 70%); }
+.inv-card__art[data-type="item"] { background: radial-gradient(circle at 50% 120%, rgba(107,63,160,0.35), #161824 70%); }
+
+.inv-card__icon {
+  font-size: 3rem;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+  transition: transform 0.2s ease;
+}
+.inv-card:hover .inv-card__icon { transform: scale(1.12) translateY(-3px); }
+
+.inv-card__mana {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #3a6ea8;
+  border: 2px solid rgba(255,255,255,0.15);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+.inv-card__qty {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid #353a58;
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: #8a8070;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.inv-card__info {
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.inv-card__name {
+  color: #d4c9a8;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.inv-card__meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #4a4535;
+}
