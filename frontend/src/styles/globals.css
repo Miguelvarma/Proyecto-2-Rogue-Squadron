@@ -1,0 +1,83 @@
+/* ══════════════════════════════════════════
+   THE NEXUS BATTLES V — Design Tokens
+   Importar en todos los componentes via :root
+══════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  /* Backgrounds */
+  --color-abyss:        #0A0705;
+  --color-dungeon:      #120E0A;
+  --color-stone-dark:   #1C1510;
+  --color-stone:        #2A1F16;
+  --color-stone-light:  #3D2E22;
+
+  /* Gold (primary) */
+  --color-gold-deep:    #5C3D00;
+  --color-gold-dark:    #8B5E00;
+  --color-gold:         #C8860A;
+  --color-gold-bright:  #E8A020;
+  --color-gold-light:   #F5C842;
+
+  /* Crimson (danger/combat) */
+  --color-blood:        #7A0010;
+  --color-crimson:      #A81020;
+  --color-crimson-bright: #D42030;
+
+  /* Arcane (missions/magic) */
+  --color-arcane-dark:  #1A0A2E;
+  --color-arcane:       #4A1580;
+  --color-arcane-bright:#7B35D0;
+  --color-arcane-glow:  #B06EFF;
+
+  /* Emerald (success) */
+  --color-emerald:      #1A8C45;
+  --color-emerald-bright:#28C060;
+
+  /* Ice (rare items) */
+  --color-ice:          #1A7FAA;
+  --color-ice-bright:   #30B8E8;
+
+  /* Text */
+  --color-parchment:    #F0DEB0;
+  --color-parchment-dim:#B89A6A;
+  --color-rune-gray:    #7A6A58;
+  --color-ash:          #4A3D32;
+
+  /* Item rarity */
+  --rarity-common:    #9E9E9E;
+  --rarity-rare:      #1A7FAA;
+  --rarity-epic:      #7B35D0;
+  --rarity-legendary: #C8860A;
+
+  /* Typography */
+  --font-title:   'Cinzel Decorative', serif;
+  --font-heading: 'Cinzel', serif;
+  --font-body:    'Crimson Text', serif;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--color-abyss);
+  color: var(--color-parchment);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+#root { min-height: 100vh; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-abyss); }
+::-webkit-scrollbar-thumb { background: var(--color-gold-dark); border-radius: 3px; }
