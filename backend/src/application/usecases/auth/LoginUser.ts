@@ -15,8 +15,6 @@ export class LoginUser {
     private readonly tokenService: ITokenService
   ) {}
 
-  
-
   async execute(data: LoginDTO, ip: string, userAgent: string): Promise<{ 
     user: any; 
     accessToken: string;
@@ -38,10 +36,7 @@ export class LoginUser {
       throw new Error('Credenciales inválidas');
     }
 
-
     // 2. Verificar contraseña
-    // LOG TEMPORAL: Mostrar la contraseña recibida y el hash guardado
-    console.log('Comparando contraseña:', JSON.stringify(data.password), 'con hash:', JSON.stringify(user.password));
     const isValidPassword = await this.passwordHasher.compare(
       data.password, 
       user.password
