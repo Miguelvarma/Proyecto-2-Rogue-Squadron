@@ -15,6 +15,7 @@ import InventoryPage from '@/pages/InventoryPage';
 import ItemDetailPage from '@/pages/ItemDetailPage';
 import RankingsPage from '@/pages/RankingsPage';
 import ProfilePage from '@/pages/ProfilePage';
+import ShopPage from '@/pages/ShopPage';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore(s => s.isAuthenticated);

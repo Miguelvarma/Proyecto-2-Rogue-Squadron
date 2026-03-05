@@ -20,6 +20,8 @@ const envSchema = z.object({
   AI_API_URL: z.string().url(),
   PAYMENT_API_KEY: z.string(),
   PAYMENT_WEBHOOK_SECRET: z.string(),
+  DEFAULT_PAYMENT_GATEWAY: z.enum(['mercadopago', 'stripe', 'mock']).default('mock'),
+  APP_BASE_URL: z.string().url().optional(),
   REDIS_URL: z.string().optional(),
   CORS_ORIGIN: z.string(),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),

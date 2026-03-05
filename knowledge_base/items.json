@@ -1,0 +1,139 @@
+{
+  "game_info": {
+    "nombre": "THE NEXUS BATTLES V",
+    "descripcion": "Juego de cartas donde cada jugador tiene un mazo de 52 cartas y un héroe principal que guiará sus aventuras.",
+    "mecanica_poder": "El poder se recupera instantáneamente al concluir el combate o 2 puntos por turno durante el combate. Sin poder suficiente, el ataque se reduce a su valor base.",
+    "mecanica_vida": "Si la vida llega a 0, el héroe fallece y el juego termina.",
+    "mecanica_defensa": "Una defensa superior disminuye el daño recibido.",
+    "mecanica_ataque": "Un ataque más elevado que la defensa del rival incrementa la probabilidad de acierto.",
+    "mecanica_daño": "Cantidad de daño que el héroe inflige en un ataque exitoso.",
+    "tabla_efectos": "Cada ataque usa una tabla de 8000 filas. Si supera la defensa enemiga, se selecciona una fila aleatoria que determina el efecto (daño normal, crítico, evasión, resistencia, escape, o sin efecto).",
+    "efectos_critico": "Causa entre 120% a 180% de daño al contrario.",
+    "efectos_evade": "Causa 80% de daño al contrario.",
+    "efectos_resiste": "Causa 60% de daño al contrario.",
+    "efectos_escapa": "Causa 20% de daño al contrario."
+  },
+  "mazo": {
+    "descripcion": "Cada jugador arma dos mazos: uno para el héroe principal y uno para el secundario.",
+    "composicion": {
+      "habilidades_heroe": { "seleccion": 3, "multiplicador": 4, "total": 12 },
+      "armas": { "seleccion": 2, "multiplicador": 4, "total": 8 },
+      "armaduras": { "seleccion": 6, "multiplicador": 4, "total": 24 },
+      "items": { "seleccion": 2, "multiplicador": 2, "total": 4 },
+      "epicas_generales": { "seleccion": 7, "multiplicador": 2, "total": 14 },
+      "epicas_tipo_heroe": { "seleccion": 1, "multiplicador": 2, "total": 2, "maximo": 2 },
+      "total_cartas": 64
+    },
+    "equipamiento_maximo": {
+      "armaduras": "Hasta 6 partes: Casco, Pecho, Guantes, Brazaletes, Pantalón y Zapatos",
+      "items": "Máximo 2 ítems simultáneos"
+    }
+  },
+  "cartas_epicas": {
+    "descripcion": "Habilidades especiales que no usan puntos de poder y tienen 2 turnos de recarga.",
+    "como_obtener": "Solo como recompensas especiales al derrotar enemigos 'Máster' en misiones.",
+    "nota": "Los enemigos Máster solo se encuentran en las misiones."
+  },
+  "items": [
+    {
+      "id": "item_001",
+      "name": "Pinchos de escudo",
+      "hero_type": "warrior",
+      "subtype": "tanque",
+      "efecto": "Si el ataque del oponente es menor que la defensa del guerrero, el oponente recibe +1 de daño",
+      "tradeable": true
+    },
+    {
+      "id": "item_002",
+      "name": "Empuñadura de Furia",
+      "hero_type": "warrior",
+      "subtype": "armas",
+      "efecto": "+1 de daño por dos turnos. Causa que el guerrero pierda -1 de vida en los mismos turnos.",
+      "tradeable": true
+    },
+    {
+      "id": "item_003",
+      "name": "Anillo para Piro-explosión",
+      "hero_type": "mage",
+      "subtype": "fuego",
+      "efecto": "+3 de daño",
+      "tradeable": true
+    },
+    {
+      "id": "item_004",
+      "name": "Libro de la ventisca helada",
+      "hero_type": "mage",
+      "subtype": "hielo",
+      "efecto": "+2 de daño",
+      "tradeable": true
+    },
+    {
+      "id": "item_005",
+      "name": "Veneno lacerante",
+      "hero_type": "rogue",
+      "subtype": "veneno",
+      "efecto": "-1 al poder del oponente. Solo aplica cada dos turnos.",
+      "tradeable": true
+    },
+    {
+      "id": "item_006",
+      "name": "Mancuerna yugular",
+      "hero_type": "rogue",
+      "subtype": "machete",
+      "efecto": "Explota por 2 el valor en turno causado por la Cierra sangrienta en el oponente",
+      "tradeable": true
+    },
+    {
+      "id": "item_007",
+      "name": "Pluma sanadora",
+      "hero_type": "healer",
+      "subtype": "chaman",
+      "efecto": "Mejora la sanación multiplicando x2",
+      "tradeable": true
+    },
+    {
+      "id": "item_008",
+      "name": "Benditas",
+      "hero_type": "healer",
+      "subtype": "medico",
+      "efecto": "Sana las heridas por tres turnos o cura +1 por tres turnos",
+      "tradeable": true
+    }
+  ],
+  "weapons": [
+    { "id": "w_001", "name": "Espada de una mano", "hero_type": "warrior", "subtype": "tanque", "set": 1, "efecto": "+1 al ataque, +1% de crítico al ataque" },
+    { "id": "w_002", "name": "Escudo de dragón", "hero_type": "warrior", "subtype": "tanque", "set": 2, "efecto": "+1 a la defensa" },
+    { "id": "w_003", "name": "Espada de dos manos", "hero_type": "warrior", "subtype": "armas", "set": 1, "efecto": "+1 al ataque, +3% de crítico al ataque" },
+    { "id": "w_004", "name": "Piedra de afilar", "hero_type": "warrior", "subtype": "armas", "set": 2, "efecto": "+2 al daño" },
+    { "id": "w_005", "name": "Orbe de manos ardientes", "hero_type": "mage", "subtype": "fuego", "set": 1, "efecto": "+1 al daño, +3% de crítico al ataque" },
+    { "id": "w_006", "name": "Fuego fatuo", "hero_type": "mage", "subtype": "fuego", "set": 2, "efecto": "+1 al ataque" },
+    { "id": "w_007", "name": "Báculo de Permafrost", "hero_type": "mage", "subtype": "hielo", "set": 1, "efecto": "-1 al daño del oponente, -2% de crítico al ataque del oponente" },
+    { "id": "w_008", "name": "Venas heladas", "hero_type": "mage", "subtype": "hielo", "set": 2, "efecto": "+1 al daño" },
+    { "id": "w_009", "name": "Daga purulenta", "hero_type": "rogue", "subtype": "veneno", "set": 1, "efecto": "+1 al daño por dos turnos, +3% de crítico al ataque" },
+    { "id": "w_010", "name": "Visión borrosa", "hero_type": "rogue", "subtype": "veneno", "set": 2, "efecto": "-1 al ataque del oponente" },
+    { "id": "w_011", "name": "Machete bendito", "hero_type": "rogue", "subtype": "machete", "set": 1, "efecto": "+2 al daño, +2% de crítico al ataque" },
+    { "id": "w_012", "name": "Cierra sangrienta", "hero_type": "rogue", "subtype": "machete", "set": 2, "efecto": "+2 al daño por dos turnos" },
+    { "id": "w_013", "name": "Raíz china", "hero_type": "healer", "subtype": "chaman", "set": 1, "efecto": "+(2d4) de sanación" },
+    { "id": "w_014", "name": "Yerbabuena", "hero_type": "healer", "subtype": "chaman", "set": 2, "efecto": "+2 de sanación por dos turnos" },
+    { "id": "w_015", "name": "Kit de urgencias", "hero_type": "healer", "subtype": "medico", "set": 1, "efecto": "+(2d6) de sanación" },
+    { "id": "w_016", "name": "Reanimador", "hero_type": "healer", "subtype": "medico", "set": 2, "efecto": "+(4d6) de sanación" }
+  ],
+  "armor": [
+    { "id": "a_001", "name": "Defensa del enfurecido", "tipo": "Pecho", "hero_type": "warrior", "efecto": "+2 a la defensa, +2 de vida" },
+    { "id": "a_002", "name": "Puño lúcido", "tipo": "Guantes", "hero_type": "warrior", "efecto": "+2 a la defensa, +1 de vida" },
+    { "id": "a_003", "name": "Magma Ardiente", "tipo": "Casco", "hero_type": "warrior", "efecto": "+2 a la defensa, +1 de vida" },
+    { "id": "a_004", "name": "Puños en llamas", "tipo": "Brazaletes", "hero_type": "warrior", "efecto": "+1 a la defensa, +1 de vida" },
+    { "id": "a_005", "name": "Túnica arcana", "tipo": "Pecho", "hero_type": "mage", "subtype": "fuego", "efecto": "+1 a la defensa, +2 de vida" },
+    { "id": "a_006", "name": "Caída de fuego", "tipo": "Pantalón", "hero_type": "mage", "subtype": "fuego", "efecto": "+1 a la defensa, +1 de vida" },
+    { "id": "a_007", "name": "Corona de hielo", "tipo": "Casco", "hero_type": "mage", "subtype": "hielo", "efecto": "+1 a la defensa, +1 de vida" },
+    { "id": "a_008", "name": "Ventisca", "tipo": "Pecho", "hero_type": "mage", "subtype": "hielo", "efecto": "+1 a la defensa, +2 de vida" },
+    { "id": "a_009", "name": "Mano del desterrado", "tipo": "Guantes", "hero_type": "rogue", "subtype": "veneno", "efecto": "+2 a la defensa, +1 de vida" },
+    { "id": "a_010", "name": "Atadura carmesí", "tipo": "Pecho", "hero_type": "rogue", "subtype": "veneno", "efecto": "+1 a la defensa, +2 de vida" },
+    { "id": "a_011", "name": "Pie de atleta", "tipo": "Zapatos", "hero_type": "rogue", "subtype": "machete", "efecto": "+2 a la defensa, +1 de vida" },
+    { "id": "a_012", "name": "Sangre cruel", "tipo": "Brazaletes", "hero_type": "rogue", "subtype": "machete", "efecto": "+1 a la defensa, +1 de vida" },
+    { "id": "a_013", "name": "Piel de Caminante del Bosque", "tipo": "Pecho", "hero_type": "healer", "subtype": "chaman", "efecto": "+1 a la defensa, +2 de vida" },
+    { "id": "a_014", "name": "Casco de Ecos Ancestrales", "tipo": "Casco", "hero_type": "healer", "subtype": "chaman", "efecto": "+1 a la defensa, +2 de vida" },
+    { "id": "a_015", "name": "Bata de Cirujano", "tipo": "Pecho", "hero_type": "healer", "subtype": "medico", "efecto": "+1 a la defensa, +2 de vida" },
+    { "id": "a_016", "name": "Pantalón de Expedición Médica", "tipo": "Pantalón", "hero_type": "healer", "subtype": "medico", "efecto": "+1 a la defensa, +2 de vida" }
+  ]
+}

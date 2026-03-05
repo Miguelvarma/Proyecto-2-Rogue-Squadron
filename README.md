@@ -34,6 +34,7 @@ mysql -u root -p < scripts/init-db.sql
 
 ## Estructura
 ```
+
 src/
   domain/          # Logica pura — sin dependencias externas
   application/     # Casos de uso + puertos (contratos)
@@ -44,3 +45,29 @@ src/
 ## Regla de Oro
 El dominio NO importa mysql2, axios, express ni ninguna libreria de infraestructura.
 Todo acceso externo pasa por un Adaptador que implementa un Contrato (Puerto).
+
+
+Descripción
+Módulo de chatbot inteligente para THE NEXUS BATTLES V.
+Desarrollado con FastAPI (Python) + JavaScript + Groq AI.
+Disponible como widget flotante en todas las vistas del sistema.
+
+Stack tecnológico
+- **Backend:** Python 3.13, FastAPI, Uvicorn
+- **Frontend:** JavaScript, HTML, CSS
+- **IA:** Groq API (llama-3.3-70b-versatile)
+- **Contenedores:** Docker, Docker Compose
+
+---
+
+## Instalación y ejecución.
+
+### Requisitos previos
+- [Python 3.13+](https://www.python.org/downloads/)
+- [Node.js](https://nodejs.org/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) *(opcional)*
+- [Git](https://git-scm.com/)
+
+
+
+
