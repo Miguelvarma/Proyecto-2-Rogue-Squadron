@@ -85,3 +85,10 @@
   color: var(--color-abyss);
   border-color: var(--color-gold);
 }
+
+.pagination__info {
+  color: var(--color-parchment-dim);
+  font-size: 0.8rem;
+  margin-left: 1rem;
+  font-family: var(--font-heading);
+}

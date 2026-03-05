@@ -7,18 +7,25 @@ interface PaginationProps {
 }
 
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+  // Si no hay múltiples páginas, no mostrar nada
+  if (totalPages <= 1) return null;
+
   const getPageNumbers = () => {
     const pages: number[] = [];
     const maxVisible = 5;
     
     if (totalPages <= maxVisible) {
+      // Mostrar todas las páginas
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
       if (currentPage <= 3) {
+        // Cerca del inicio: 1 2 3 4 5
         for (let i = 1; i <= 5; i++) pages.push(i);
       } else if (currentPage >= totalPages - 2) {
+        // Cerca del final: total-4 total-3 total-2 total-1 total
         for (let i = totalPages - 4; i <= totalPages; i++) pages.push(i);
       } else {
+        // En medio: current-2 current-1 current current+1 current+2
         for (let i = currentPage - 2; i <= currentPage + 2; i++) pages.push(i);
       }
     }
@@ -26,14 +33,14 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
   };
 
   const goToPage = (page: number) => {
-    if (page >= 1 && page <= totalPages) onPageChange(page);
+    if (page >= 1 && page <= totalPages) {
+      onPageChange(page);
+    }
   };
-
-  const goPrevWindow = () => goToPage(Math.max(1, currentPage - 5));
-  const goNextWindow = () => goToPage(Math.min(totalPages, currentPage + 5));
 
   return (
     <div className="pagination">
+      {/* Botón primera página */}
       <button
         className="pagination__arrow"
         onClick={() => goToPage(1)}
@@ -42,15 +49,8 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
       >
         ««
       </button>
-      <button
-        className="pagination__arrow"
-        onClick={goPrevWindow}
-        disabled={currentPage <= 5}
-        title="5 páginas atrás"
-      >
-        «
-      </button>
 
+      {/* Botón página anterior */}
       <button
         className="pagination__btn"
         onClick={() => goToPage(currentPage - 1)}
@@ -59,6 +59,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         Anterior
       </button>
 
+      {/* Números de página */}
       <div className="pagination__numbers">
         {getPageNumbers().map(num => (
           <button
@@ -71,6 +72,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         ))}
       </div>
 
+      {/* Botón página siguiente */}
       <button
         className="pagination__btn"
         onClick={() => goToPage(currentPage + 1)}
@@ -79,14 +81,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         Siguiente
       </button>
 
-      <button
-        className="pagination__arrow"
-        onClick={goNextWindow}
-        disabled={currentPage > totalPages - 5}
-        title="5 páginas adelante"
-      >
-        »
-      </button>
+      {/* Botón última página */}
       <button
         className="pagination__arrow"
         onClick={() => goToPage(totalPages)}
@@ -95,6 +90,11 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
       >
         »»
       </button>
+
+      {/* Información de página */}
+      <span className="pagination__info">
+        Página {currentPage} de {totalPages}
+      </span>
     </div>
   );
 }

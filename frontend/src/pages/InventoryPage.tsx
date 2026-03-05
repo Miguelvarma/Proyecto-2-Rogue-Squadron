@@ -24,28 +24,32 @@ export default function InventoryPage() {
   const [isSearching, setIsSearching] = useState(false);
 
   const fetchInventory = useCallback(async () => {
-    setLoading(true);
-    setError(null);
+  setLoading(true);
+  setError(null);
+  
+  try {
+    const filters: Filters = {
+      page: currentPage,
+      limit: 16
+    };
     
-    try {
-      const filters: Filters = {
-        page: currentPage,
-        limit: 16
-      };
-      
-      if (selectedTipo) filters.tipo = selectedTipo;
-      if (selectedRareza) filters.rareza = selectedRareza;
-      
-      const response = await inventoryApi.getItems(filters);
-      setItems(response.items);
-      setTotalPages(response.totalPages);
-      setTotalItems(response.total);
-    } catch (err) {
-      setError(getErrorMessage(err));
-    } finally {
-      setLoading(false);
-    }
-  }, [currentPage, selectedTipo, selectedRareza]);
+    if (selectedTipo) filters.tipo = selectedTipo;
+    if (selectedRareza) filters.rareza = selectedRareza;
+    
+    const response = await inventoryApi.getItems(filters);
+    console.log('📦 Respuesta del backend:', response); // 👈 VERIFICAR
+    console.log('Total items:', response.total); // 👈 DEBERÍA SER 40
+    console.log('📊 totalPages:', totalPages, 'totalPages > 1?', totalPages > 1);
+    
+    setItems(response.items);
+    setTotalPages(response.totalPages);
+    setTotalItems(response.total);
+  } catch (err) {
+    setError(getErrorMessage(err));
+  } finally {
+    setLoading(false);
+  }
+}, [currentPage, selectedTipo, selectedRareza]);
 
   const handleSearch = useCallback(async (query: string) => {
     if (query.length === 0) {
@@ -234,6 +238,7 @@ export default function InventoryPage() {
                   currentPage={currentPage}
                   totalPages={totalPages}
                   onPageChange={setCurrentPage}
+                  
                 />
               )}
             </>

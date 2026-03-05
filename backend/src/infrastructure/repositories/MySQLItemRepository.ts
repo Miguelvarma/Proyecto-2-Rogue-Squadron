@@ -1,7 +1,16 @@
+// infrastructure/repositories/MySQLItemRepository.ts
 import { pool } from "../database/connection";
 import { Item } from "../../domain/entities/Item";
 import { IItemRepository, ItemFilters } from "../../domain/repositories/IItemRepository";
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
+
+// ✅ Definir el tipo aquí mismo
+interface PaginatedResult<T> {
+  items: T[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
 
 interface ItemRow extends RowDataPacket {
   id: string;
@@ -36,7 +45,7 @@ export class MySQLItemRepository implements IItemRepository {
     return this.mapToEntity(rows[0]);
   }
   
-  async findAll(filters: ItemFilters): Promise<{ items: Item[]; total: number }> {
+  async findAll(filters: ItemFilters): Promise<PaginatedResult<Item>> {
     // Construir query base
     let query = 'SELECT * FROM items WHERE activo = true';
     let countQuery = 'SELECT COUNT(*) as total FROM items WHERE activo = true';
@@ -68,7 +77,8 @@ export class MySQLItemRepository implements IItemRepository {
     
     // Paginación
     const limit = filters.limit || 16;
-    const offset = ((filters.page || 1) - 1) * limit;
+    const page = filters.page || 1;
+    const offset = (page - 1) * limit;
     
     query += ' LIMIT ? OFFSET ?';
     params.push(limit, offset);
@@ -83,7 +93,17 @@ export class MySQLItemRepository implements IItemRepository {
     const total = countResult[0]?.total || 0;
     const items = rows.map(row => this.mapToEntity(row));
     
-    return { items, total };
+    // ✅ Calcular totalPages
+    const totalPages = Math.ceil(total / limit);
+    
+    console.log('📊 Resultado:', { total, page, totalPages, itemsCount: items.length });
+    
+    return { 
+      items, 
+      total,
+      page,
+      totalPages
+    };
   }
   
   async search(query: string): Promise<Item[]> {
@@ -100,7 +120,6 @@ export class MySQLItemRepository implements IItemRepository {
   }
   
   async save(item: Item): Promise<Item> {
-    // ✅ Usar toPersistence() para obtener todas las propiedades
     const props = item.toPersistence();
     
     await pool.query<ResultSetHeader>(
@@ -114,13 +133,13 @@ export class MySQLItemRepository implements IItemRepository {
         props.nombre,
         props.tipo,
         props.rareza,
-        props.imagen || null,  // ✅ Manejar null correctamente
+        props.imagen || null,
         props.descripcion,
         JSON.stringify(props.habilidades || []),
         JSON.stringify(props.efectos || []),
         props.ataque || 0,
         props.defensa || 0,
-        props.userId || null,   // ✅ Manejar null
+        props.userId || null,
         props.enSubasta || false,
         props.enMazoActivo || false,
         props.activo !== undefined ? props.activo : true,
@@ -133,7 +152,6 @@ export class MySQLItemRepository implements IItemRepository {
   }
   
   async update(item: Item): Promise<Item> {
-    // ✅ Usar toPersistence() para obtener todas las propiedades
     const props = item.toPersistence();
     
     await pool.query<ResultSetHeader>(
@@ -147,16 +165,16 @@ export class MySQLItemRepository implements IItemRepository {
         props.nombre,
         props.tipo,
         props.rareza,
-        props.imagen || null,  // ✅ Manejar null
+        props.imagen || null,
         props.descripcion,
         JSON.stringify(props.habilidades || []),
         JSON.stringify(props.efectos || []),
         props.ataque || 0,
         props.defensa || 0,
-        props.userId || null,   // ✅ Manejar null
+        props.userId || null,
         props.enSubasta || false,
         props.enMazoActivo || false,
-        new Date(),              // ✅ Siempre actualizar updated_at
+        new Date(),
         props.id
       ]
     );
@@ -174,7 +192,6 @@ export class MySQLItemRepository implements IItemRepository {
   }
   
   private mapToEntity(row: ItemRow): Item {
-    // ✅ Usar el constructor de la clase Item con todas las propiedades
     return new Item({
       id: row.id,
       nombre: row.nombre,

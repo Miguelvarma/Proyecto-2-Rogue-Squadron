@@ -44,7 +44,7 @@ list = async (req: Request, res: Response) => {
     };
     
     const result = await this.getItems.execute(filters);
-    res.json(result);
+    res.json(result); // ✅ Ahora incluye page y totalPages
   } catch (error) {
     console.error('Error en list:', error);
     res.status(500).json({ error: 'Error al obtener items' });
