@@ -1,0 +1,332 @@
+{
+  "heroes": [
+    {
+      "id": "hero_001",
+      "name": "Guerrero Tanque",
+      "hero_type": "warrior",
+      "subtype": "tanque",
+      "rarity": "epic",
+      "description": "Se distingue por su alta resistencia a los ataques enemigos, aunque su capacidad ofensiva es limitada.",
+      "stats": {
+        "poder": 10,
+        "vida": 44,
+        "defensa": 11,
+        "ataque": "10+1d6",
+        "daño": "1d4"
+      },
+      "abilities": [
+        { "nombre": "Golpe con escudo", "costo": 2, "efecto": "+2 al ataque" },
+        { "nombre": "Mano de piedra", "costo": 4, "efecto": "+12 a la defensa" },
+        { "nombre": "Defensa feroz", "costo": 6, "efecto": "Inmune al daño físico y (3d6) al daño mágico" }
+      ],
+      "epic": {
+        "nombre": "Golpe de defensa",
+        "efecto_general": "+1 al ataque",
+        "efecto_epico": "+4 al daño, +2% de crítico",
+        "probabilidad_master": "0.04%"
+      },
+      "weapons": {
+        "set1": { "arma": "Espada de una mano", "efecto": "+1 al ataque, +1% de crítico al ataque" },
+        "set2": { "arma": "Escudo de dragón", "efecto": "+1 a la defensa" }
+      },
+      "armor": [
+        { "nombre": "Defensa del enfurecido", "tipo": "Pecho", "efecto": "+2 a la defensa, +2 de vida" },
+        { "nombre": "Puño lúcido", "tipo": "Guantes", "efecto": "+2 a la defensa, +1 de vida" },
+        { "nombre": "Magma Ardiente", "tipo": "Casco", "efecto": "+2 a la defensa, +1 de vida" },
+        { "nombre": "Puños en llamas", "tipo": "Brazaletes", "efecto": "+1 a la defensa, +1 de vida" }
+      ],
+      "items": [
+        { "nombre": "Pinchos de escudo", "efecto": "Si el ataque del oponente es menor que la defensa del guerrero, el oponente recibe +1 de daño" }
+      ],
+      "combat_table": {
+        "causar_daño": "40%", "daño_critico": "0%", "evaden_golpe": "5%",
+        "resisten_golpe": "0%", "escapan_golpe": "5%", "no_causar_daño": "50%"
+      }
+    },
+    {
+      "id": "hero_002",
+      "name": "Guerrero Armas",
+      "hero_type": "warrior",
+      "subtype": "armas",
+      "rarity": "epic",
+      "description": "Su especialidad radica en infligir el máximo daño posible, a expensas de su defensa.",
+      "stats": {
+        "poder": 10,
+        "vida": 44,
+        "defensa": 11,
+        "ataque": "10+1d6",
+        "daño": "1d6"
+      },
+      "abilities": [
+        { "nombre": "Embate sangriento", "costo": 4, "efecto": "+2 al ataque, +1 de daño" },
+        { "nombre": "Lanza de los dioses", "costo": 4, "efecto": "+2 al daño" },
+        { "nombre": "Golpe de tormenta", "costo": 6, "efecto": "+(3d6) al ataque, +2 al daño" }
+      ],
+      "epic": {
+        "nombre": "Segundo impulso",
+        "efecto_general": "Recupera 1d4 de vida",
+        "efecto_epico": "+3 a la vida, +5% de crítico",
+        "probabilidad_master": "0.01%"
+      },
+      "weapons": {
+        "set1": { "arma": "Espada de dos manos", "efecto": "+1 al ataque, +3% de crítico al ataque" },
+        "set2": { "arma": "Piedra de afilar", "efecto": "+2 al daño" }
+      },
+      "armor": [
+        { "nombre": "Defensa del enfurecido", "tipo": "Pecho", "efecto": "+2 a la defensa, +2 de vida" },
+        { "nombre": "Puño lúcido", "tipo": "Guantes", "efecto": "+2 a la defensa, +1 de vida" },
+        { "nombre": "Magma Ardiente", "tipo": "Casco", "efecto": "+2 a la defensa, +1 de vida" },
+        { "nombre": "Puños en llamas", "tipo": "Brazaletes", "efecto": "+1 a la defensa, +1 de vida" }
+      ],
+      "items": [
+        { "nombre": "Empuñadura de Furia", "efecto": "+1 de daño por dos turnos. Causa que el guerrero pierda -1 de vida en los mismos turnos." }
+      ],
+      "combat_table": {
+        "causar_daño": "60%", "daño_critico": "5%", "evaden_golpe": "3%",
+        "resisten_golpe": "0%", "escapan_golpe": "2%", "no_causar_daño": "30%"
+      }
+    },
+    {
+      "id": "hero_003",
+      "name": "Mago Fuego",
+      "hero_type": "mage",
+      "subtype": "fuego",
+      "rarity": "legendary",
+      "description": "Entrenado en la magia elemental, posee la habilidad de causar un daño considerable al oponente.",
+      "stats": {
+        "poder": 8,
+        "vida": 40,
+        "defensa": 10,
+        "ataque": "10+1d8",
+        "daño": "1d8"
+      },
+      "abilities": [
+        { "nombre": "Misiles de magma", "costo": 2, "efecto": "+1 al ataque, +2 de daño" },
+        { "nombre": "Pared de fuego", "costo": 4, "efecto": "+1 al ataque y retorna el daño causado por el oponente en el turno anterior" },
+        { "nombre": "Vulcano", "costo": 6, "efecto": "+3 al ataque, +(3d9) al daño" }
+      ],
+      "epic": {
+        "nombre": "Luz cegadora",
+        "efecto_general": "+1 a la vida, -1 de poder al oponente",
+        "efecto_epico": "+2 al daño, +1% de crítico",
+        "probabilidad_master": "0.03%"
+      },
+      "weapons": {
+        "set1": { "arma": "Orbe de manos ardientes", "efecto": "+1 al daño, +3% de crítico al ataque" },
+        "set2": { "arma": "Fuego fatuo", "efecto": "+1 al ataque" }
+      },
+      "armor": [
+        { "nombre": "Túnica arcana", "tipo": "Pecho", "efecto": "+1 a la defensa, +2 de vida" },
+        { "nombre": "Caída de fuego", "tipo": "Pantalón", "efecto": "+1 a la defensa, +1 de vida" }
+      ],
+      "items": [
+        { "nombre": "Anillo para Piro-explosión", "efecto": "+3 de daño" }
+      ],
+      "combat_table": {
+        "causar_daño": "70%", "daño_critico": "5%", "evaden_golpe": "0%",
+        "resisten_golpe": "5%", "escapan_golpe": "0%", "no_causar_daño": "20%"
+      }
+    },
+    {
+      "id": "hero_004",
+      "name": "Mago Hielo",
+      "hero_type": "mage",
+      "subtype": "hielo",
+      "rarity": "legendary",
+      "description": "Su pericia se centra en debilitar al enemigo para asegurar una victoria estratégica.",
+      "stats": {
+        "poder": 8,
+        "vida": 40,
+        "defensa": 10,
+        "ataque": "10+1d8",
+        "daño": "1d6"
+      },
+      "abilities": [
+        { "nombre": "Lluvia de hielo", "costo": 2, "efecto": "+2 al ataque, +2 de daño" },
+        { "nombre": "Bola de hielo", "costo": 4, "efecto": "+2 al ataque y afecta en (0d4) al daño causado por el oponente" },
+        { "nombre": "Cono de hielo", "costo": 6, "efecto": "+2 al daño y afecta el ataque del enemigo en un (1d3) durante los dos turnos siguientes" }
+      ],
+      "epic": {
+        "nombre": "Frío concentrado",
+        "efecto_general": "+1 al ataque",
+        "efecto_epico": "No recibe ningún daño en el siguiente turno",
+        "probabilidad_master": "0.05%"
+      },
+      "weapons": {
+        "set1": { "arma": "Báculo de Permafrost", "efecto": "-1 al daño del oponente, -2% de crítico al ataque del oponente" },
+        "set2": { "arma": "Venas heladas", "efecto": "+1 al daño" }
+      },
+      "armor": [
+        { "nombre": "Corona de hielo", "tipo": "Casco", "efecto": "+1 a la defensa, +1 de vida" },
+        { "nombre": "Ventisca", "tipo": "Pecho", "efecto": "+1 a la defensa, +2 de vida" }
+      ],
+      "items": [
+        { "nombre": "Libro de la ventisca helada", "efecto": "+2 de daño" }
+      ],
+      "combat_table": {
+        "causar_daño": "70%", "daño_critico": "6%", "evaden_golpe": "0%",
+        "resisten_golpe": "4%", "escapan_golpe": "0%", "no_causar_daño": "20%"
+      }
+    },
+    {
+      "id": "hero_005",
+      "name": "Pícaro Veneno",
+      "hero_type": "rogue",
+      "subtype": "veneno",
+      "rarity": "rare",
+      "description": "Experto en alquimia, puede infligir daño significativo afectando habilidades y disminuyendo la precisión del adversario.",
+      "stats": {
+        "poder": 8,
+        "vida": 36,
+        "defensa": 8,
+        "ataque": "10+1d10",
+        "daño": "1d6"
+      },
+      "abilities": [
+        { "nombre": "Flor de loto", "costo": 2, "efecto": "+(4d8) al daño" },
+        { "nombre": "Agonía", "costo": 4, "efecto": "+(2d9) de daño" },
+        { "nombre": "Piquete", "costo": 4, "efecto": "+1 al ataque por dos turnos, +2 al daño por 1 turno" }
+      ],
+      "epic": {
+        "nombre": "Toma y lleva",
+        "efecto_general": "+1 al daño",
+        "efecto_epico": "Disminuye a la mitad el daño causado por el oponente y se lo retorna",
+        "probabilidad_master": "0.02%"
+      },
+      "weapons": {
+        "set1": { "arma": "Daga purulenta", "efecto": "+1 al daño por dos turnos, +3% de crítico al ataque" },
+        "set2": { "arma": "Visión borrosa", "efecto": "-1 al ataque del oponente" }
+      },
+      "armor": [
+        { "nombre": "Mano del desterrado", "tipo": "Guantes", "efecto": "+2 a la defensa, +1 de vida" },
+        { "nombre": "Atadura carmesí", "tipo": "Pecho", "efecto": "+1 a la defensa, +2 de vida" }
+      ],
+      "items": [
+        { "nombre": "Veneno lacerante", "efecto": "-1 al poder del oponente. Solo aplica cada dos turnos." }
+      ],
+      "combat_table": {
+        "causar_daño": "55%", "daño_critico": "10%", "evaden_golpe": "0%",
+        "resisten_golpe": "0%", "escapan_golpe": "0%", "no_causar_daño": "35%"
+      }
+    },
+    {
+      "id": "hero_006",
+      "name": "Pícaro Machete",
+      "hero_type": "rogue",
+      "subtype": "machete",
+      "rarity": "rare",
+      "description": "Con entrenamiento en armas cortantes, es especialista en provocación de heridas letales.",
+      "stats": {
+        "poder": 8,
+        "vida": 36,
+        "defensa": 8,
+        "ataque": "10+1d10",
+        "daño": "1d8"
+      },
+      "abilities": [
+        { "nombre": "Cortada", "costo": 2, "efecto": "+2 al daño por dos turnos" },
+        { "nombre": "Machetazo", "costo": 4, "efecto": "+(2d8) al daño, +1 al ataque" },
+        { "nombre": "Planazo", "costo": 4, "efecto": "+(2d8) al ataque, +1 al daño" }
+      ],
+      "epic": {
+        "nombre": "Intimidación sangrienta",
+        "efecto_general": "No aplica",
+        "efecto_epico": "+2 a la vida, +2% de crítico",
+        "probabilidad_master": "0.01%"
+      },
+      "weapons": {
+        "set1": { "arma": "Machete bendito", "efecto": "+2 al daño, +2% de crítico al ataque" },
+        "set2": { "arma": "Cierra sangrienta", "efecto": "+2 al daño por dos turnos" }
+      },
+      "armor": [
+        { "nombre": "Pie de atleta", "tipo": "Zapatos", "efecto": "+2 a la defensa, +1 de vida" },
+        { "nombre": "Sangre cruel", "tipo": "Brazaletes", "efecto": "+1 a la defensa, +1 de vida" }
+      ],
+      "items": [
+        { "nombre": "Mancuerna yugular", "efecto": "Explota por 2 el valor en turno causado por la Cierra sangrienta en el oponente" }
+      ],
+      "combat_table": {
+        "causar_daño": "60%", "daño_critico": "8%", "evaden_golpe": "0%",
+        "resisten_golpe": "0%", "escapan_golpe": "2%", "no_causar_daño": "30%"
+      }
+    },
+    {
+      "id": "hero_007",
+      "name": "Chamán",
+      "hero_type": "healer",
+      "subtype": "chaman",
+      "rarity": "epic",
+      "role": "héroe secundario",
+      "description": "Sanador dedicado a la naturaleza. NO puede infligir daño. Solo sana a sus aliados.",
+      "stats": {
+        "poder": 10,
+        "vida": 28,
+        "defensa": 4,
+        "ataque": "No puede atacar",
+        "daño": "No causa daño",
+        "sanar": "6+1d6"
+      },
+      "abilities": [
+        { "nombre": "Toque de la Vida", "costo": 2, "efecto": "+2 de sanación" },
+        { "nombre": "Vínculo Natural", "costo": 4, "efecto": "+2 de sanación por dos turnos" },
+        { "nombre": "Canto del Bosque", "costo": 6, "efecto": "Sana a todo el grupo +(2d6) durante dos turnos" }
+      ],
+      "epic": {
+        "nombre": "Té changua",
+        "efecto_general": "No aplica",
+        "efecto_epico": "Sana a todos +(4d8)",
+        "probabilidad_master": "0.1%"
+      },
+      "weapons": {
+        "set1": { "arma": "Raíz china", "efecto": "+(2d4) de sanación" },
+        "set2": { "arma": "Yerbabuena", "efecto": "+2 de sanación por dos turnos" }
+      },
+      "armor": [
+        { "nombre": "Piel de Caminante del Bosque", "tipo": "Pecho", "efecto": "+1 a la defensa, +2 de vida" },
+        { "nombre": "Casco de Ecos Ancestrales", "tipo": "Casco", "efecto": "+1 a la defensa, +2 de vida" }
+      ],
+      "items": [
+        { "nombre": "Pluma sanadora", "efecto": "Mejora la sanación multiplicando x2" }
+      ]
+    },
+    {
+      "id": "hero_008",
+      "name": "Médico",
+      "hero_type": "healer",
+      "subtype": "medico",
+      "rarity": "epic",
+      "role": "héroe secundario",
+      "description": "Especialista en ciencias de la salud. Aplica conocimientos científicos para restauración activa y eficiente de la salud.",
+      "stats": {
+        "poder": 10,
+        "vida": 28,
+        "defensa": 4,
+        "ataque": "No puede atacar",
+        "daño": "No causa daño",
+        "sanar": "4+1d8"
+      },
+      "abilities": [
+        { "nombre": "Curación Directa", "costo": 2, "efecto": "+2 de sanación" },
+        { "nombre": "Neutralización de Efectos", "costo": 4, "efecto": "+2 y +(2d4) de sanación" },
+        { "nombre": "Reanimación", "costo": "Todos los puntos de poder", "efecto": "Sana el 100% de la vida del compañero" }
+      ],
+      "epic": {
+        "nombre": "Reanimador 3000",
+        "efecto_general": "No aplica",
+        "efecto_epico": "Se asocia con un compañero. Si este fallece, se reanima con el 20% de su salud.",
+        "probabilidad_master": "0.1%"
+      },
+      "weapons": {
+        "set1": { "arma": "Kit de urgencias", "efecto": "+(2d6) de sanación" },
+        "set2": { "arma": "Reanimador", "efecto": "+(4d6) de sanación" }
+      },
+      "armor": [
+        { "nombre": "Bata de Cirujano", "tipo": "Pecho", "efecto": "+1 a la defensa, +2 de vida" },
+        { "nombre": "Pantalón de Expedición Médica", "tipo": "Pantalón", "efecto": "+1 a la defensa, +2 de vida" }
+      ],
+      "items": [
+        { "nombre": "Benditas", "efecto": "Sana las heridas por tres turnos o cura +1 por tres turnos" }
+      ]
+    }
+  ]
+}
