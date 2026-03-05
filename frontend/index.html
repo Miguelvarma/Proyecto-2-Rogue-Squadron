@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE NEXUS BATTLES V — Demo Widget</title>
+    <link rel="stylesheet" href="chat-widget.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #08090f;
+            color: #d4c9a8;
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Fondo con textura */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(139,26,42,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+
+        /* Nav de módulos (simulando el juego real) */
+        nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(201,168,76,0.06);
+            border: 1px solid #252840;
+            border-radius: 5px;
+            color: #7a7265;
+            padding: 8px 16px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.18s;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(201,168,76,0.12);
+            border-color: #5a4a20;
+            color: #c9a84c;
+        }
+
+        /* Título */
+        .page-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(22px, 4vw, 36px);
+            font-weight: 700;
+            color: #c9a84c;
+            text-shadow: 0 0 30px rgba(201,168,76,0.2);
+            margin-bottom: 6px;
+            letter-spacing: 0.06em;
+        }
+
+        .page-sub {
+            color: #7a7265;
+            font-size: 14px;
+            letter-spacing: 0.06em;
+            margin-bottom: 36px;
+        }
+
+        /* Grid de héroes (simulando módulo de héroes) */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 14px;
+        }
+
+        .card {
+            background: #0d0f1a;
+            border: 1px solid #1a1d2e;
+            border-radius: 8px;
+            padding: 18px 14px;
+            text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            border-color: #5a4a20;
+            transform: translateY(-3px);
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-name {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            color: #c9a84c;
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: 0.04em;
+        }
+
+        .card-type {
+            font-size: 11px;
+            color: #7a7265;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .card-rarity {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+        }
+
+        .rarity-legendary { background: rgba(201,168,76,0.15); color: #c9a84c; border: 1px solid #5a4a20; }
+        .rarity-epic      { background: rgba(100,50,180,0.15); color: #a07ae0; border: 1px solid #5a3a8a; }
+        .rarity-rare      { background: rgba(40,100,200,0.15); color: #5a9ae0; border: 1px solid #2a4a8a; }
+        .rarity-common    { background: rgba(80,80,80,0.15);   color: #888;    border: 1px solid #444; }
+
+        /* Info de integración */
+        .integration-box {
+            background: #0d0f1a;
+            border: 1px solid #252840;
+            border-left: 3px solid #c9a84c;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-top: 40px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .integration-box h3 {
+            font-family: 'Cinzel', serif;
+            color: #c9a84c;
+            font-size: 13px;
+            margin-bottom: 10px;
+            letter-spacing: 0.08em;
+        }
+
+        code {
+            background: #1a1d2e;
+            border: 1px solid #252840;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-size: 12px;
+            color: #e8c96a;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- Nav simulando módulos del juego -->
+    <nav>
+        <button class="nav-btn active">⚔ Héroes</button>
+        <button class="nav-btn">🏺 Ítems</button>
+        <button class="nav-btn">🏛 Subastas</button>
+        <button class="nav-btn">🗺 Misiones</button>
+        <button class="nav-btn">💳 Pagos</button>
+        <button class="nav-btn">📦 Inventario</button>
+    </nav>
+
+    <div class="page-title">⚔ HÉROES DEL NEXUS</div>
+    <div class="page-sub">Elige tu campeón. Cada héroe tiene un destino diferente.</div>
+
+    <div class="grid">
+        <div class="card">
+            <span class="card-icon">🗡️</span>
+            <div class="card-name">Kael el Devastador</div>
+            <div class="card-type">Guerrero</div>
+            <span class="card-rarity rarity-epic">Épico</span>
+        </div>
+        <div class="card">
+            <span class="card-icon">🔮</span>
+            <div class="card-name">Lyra la Arcana</div>
+            <div class="card-type">Mago</div>
+            <span class="card-rarity rarity-legendary">Legendario</span>
+        </div>
+        <div class="card">
+            <span class="card-icon">🗡</span>
+            <div class="card-name">Zeth el Fantasma</div>
+            <div class="card-type">Pícaro</div>
+            <span class="card-rarity rarity-rare">Raro</span>
+        </div>
+        <div class="card">
+            <span class="card-icon">✨</span>
+            <div class="card-name">Seraph la Restauradora</div>
+            <div class="card-type">Sanador</div>
+            <span class="card-rarity rarity-epic">Épico</span>
+        </div>
+        <div class="card">
+            <span class="card-icon">🛡️</span>
+            <div class="card-name">Gorrath el Inmortal</div>
+            <div class="card-type">Tanque</div>
+            <span class="card-rarity rarity-legendary">Legendario</span>
+        </div>
+        <div class="card">
+            <span class="card-icon">🏹</span>
+            <div class="card-name">Sable la Cazadora</div>
+            <div class="card-type">Pícaro</div>
+            <span class="card-rarity rarity-common">Común</span>
+        </div>
+    </div>
+
+    <!-- Cómo integrar en otros módulos -->
+    <div class="integration-box">
+        <h3>📋 CÓMO INTEGRAR EN CUALQUIER MÓDULO</h3>
+        Para que el widget aparezca en cualquier página del juego, agrega estas dos líneas
+        justo antes del cierre de <code>&lt;/body&gt;</code>:
+        <br><br>
+        <code>&lt;link rel="stylesheet" href="/chatbot/chat-widget.css"&gt;</code>
+        <br>
+        <code>&lt;script src="/chatbot/chat-widget.js"&gt;&lt;/script&gt;</code>
+        <br><br>
+        Si el backend corre en una URL diferente, agregar antes del script:
+        <br>
+        <code>&lt;script&gt;window.NEXUS_API_URL = 'https://tu-backend.com';&lt;/script&gt;</code>
+    </div>
+
+</div>
+
+<!-- ─── WIDGET DEL CHATBOT ─────────────────────────────────────────────────
+     Estas son las ÚNICAS dos líneas que cada módulo necesita agregar.
+     El orb ⚔ aparece abajo a la derecha en cualquier página.
+──────────────────────────────────────────────────────────────────────── -->
+<script>window.NEXUS_API_URL = 'http://localhost:8000';</script>
+<script src="chat-widget.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,453 @@
+/* ══════════════════════════════════════════════════════════════
+   NEXUS BATTLES V — Chat Widget CSS
+   Paleta, tipografía y componentes 100% del mockup oficial.
+   Pegar junto con chat-widget.js antes del </body>
+══════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ── Variables del mockup oficial ── */
+#nx-widget-root {
+  --abyss:           #0A0705;
+  --dungeon:         #120E0A;
+  --stone-dark:      #1C1510;
+  --stone:           #2A1F16;
+  --stone-light:     #3D2E22;
+  --gold-deep:       #5C3D00;
+  --gold-dark:       #8B5E00;
+  --gold:            #C8860A;
+  --gold-bright:     #E8A020;
+  --gold-light:      #F5C842;
+  --blood-dark:      #3D0000;
+  --blood:           #7A0010;
+  --crimson:         #A81020;
+  --crimson-bright:  #D42030;
+  --arcane-dark:     #1A0A2E;
+  --arcane:          #4A1580;
+  --arcane-bright:   #7B35D0;
+  --arcane-glow:     #B06EFF;
+  --emerald-bright:  #28C060;
+  --parchment:       #F0DEB0;
+  --parchment-dim:   #B89A6A;
+  --rune-gray:       #7A6A58;
+  --ash:             #4A3D32;
+  --font-title:      'Cinzel Decorative', serif;
+  --font-heading:    'Cinzel', serif;
+  --font-body:       'Crimson Text', serif;
+}
+
+/* ══ ORB FLOTANTE ════════════════════════════════════════════ */
+#nx-orb {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* Anillo cónico girando — dorado/carmesí exacto del mockup */
+#nx-orb::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #5C3D00, #C8860A, #A81020, #C8860A, #5C3D00
+  );
+  animation: nx-spin 4s linear infinite;
+}
+
+/* Interior oscuro del orb */
+#nx-orb::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2A1F16, #0A0705);
+  z-index: 1;
+}
+
+#nx-orb-inner {
+  position: relative;
+  z-index: 2;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 22px;
+  color: #F5C842;
+  text-shadow: 0 0 12px #C8860A, 0 0 24px #5C3D00;
+  user-select: none;
+}
+
+/* Pulso exterior */
+#nx-orb-pulse {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 1px solid #C8860A;
+  opacity: 0;
+  animation: nx-pulse 2.8s ease-out infinite;
+  z-index: 0;
+}
+
+#nx-orb:hover { transform: scale(1.12); }
+#nx-orb:hover #nx-orb-inner {
+  text-shadow: 0 0 20px #F5C842, 0 0 40px #C8860A;
+}
+
+/* Badge de no leídos */
+#nx-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 20px;
+  height: 20px;
+  background: #D42030;
+  border: 2px solid #0A0705;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #F0DEB0;
+  z-index: 3;
+}
+
+/* ══ VENTANA ══════════════════════════════════════════════════ */
+#nx-window {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 370px;
+  height: 560px;
+  background: #120E0A;
+  border: 1px solid rgba(200,134,10,0.3);
+  border-radius: 2px;
+  box-shadow:
+    0 0 0 1px rgba(200,134,10,0.08),
+    0 20px 60px rgba(0,0,0,0.9),
+    0 0 40px rgba(168,16,32,0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  overflow: hidden;
+  /* Escala tipográfica del mockup: body = Crimson Text 1.05rem */
+  font-family: 'Crimson Text', serif;
+  font-size: 1.05rem;
+  transform-origin: bottom right;
+  opacity: 0;
+  transform: scale(0.4) translateY(20px);
+  pointer-events: none;
+  transition:
+    opacity 0.3s cubic-bezier(.34,1.56,.64,1),
+    transform 0.3s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* Línea dorada superior — igual que bordes del mockup */
+#nx-window::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C8860A, #A81020, #C8860A, transparent);
+  z-index: 10;
+}
+
+#nx-window.nx-open {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: all;
+}
+
+/* ══ HEADER — nav del mockup ════════════════════════════════ */
+#nx-header {
+  /* Mismo gradiente que .mock-nav del mockup */
+  background: linear-gradient(90deg, #2A1F16 0%, #1C1510 100%);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(200,134,10,0.25);
+  flex-shrink: 0;
+}
+
+#nx-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Avatar igual que .mock-player-avatar del mockup */
+#nx-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1A0A2E, #4A1580);
+  border: 2px solid #8B5E00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 14px;
+  color: #F5C842;
+  text-shadow: 0 0 10px #5C3D00;
+  box-shadow: 0 0 14px rgba(74,21,128,0.4);
+  flex-shrink: 0;
+  position: relative;
+}
+
+#nx-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(200,134,10,0.4);
+  animation: nx-pulse 3s ease-out infinite;
+}
+
+/* Títulos — escala tipográfica del mockup */
+#nx-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #F5C842;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  filter: drop-shadow(0 0 8px rgba(200,134,10,0.4));
+  line-height: 1.2;
+}
+
+/* Online — color emerald del mockup */
+#nx-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  color: #28C060;
+  letter-spacing: 0.2em;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+#nx-subtitle::before { content: '● '; font-size: 7px; }
+
+#nx-header-actions { display: flex; gap: 5px; }
+
+/* Botones del header — estilo .nbv-btn-ghost del mockup */
+.nx-hbtn {
+  background: transparent;
+  border: 1px solid rgba(200,134,10,0.4);
+  border-radius: 1px;
+  color: #7A6A58;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: 'Cinzel', serif;
+  transition: all 0.2s;
+}
+.nx-hbtn:hover {
+  background: rgba(200,134,10,0.08);
+  color: #C8860A;
+  border-color: #C8860A;
+}
+
+/* ══ MENSAJES ══════════════════════════════════════════════ */
+#nx-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #3D2E22 transparent;
+  background:
+    radial-gradient(ellipse at top left, rgba(200,134,10,0.03) 0%, transparent 60%),
+    #120E0A;
+}
+
+/* Scrollbar — igual que ::-webkit-scrollbar del mockup */
+#nx-messages::-webkit-scrollbar { width: 6px; }
+#nx-messages::-webkit-scrollbar-track { background: #0A0705; }
+#nx-messages::-webkit-scrollbar-thumb { background: #8B5E00; border-radius: 3px; }
+
+.nx-msg {
+  max-width: 85%;
+  padding: 9px 13px;
+  border-radius: 1px;   /* mockup usa bordes rectos / 2px */
+  font-size: 1rem;
+  font-family: 'Crimson Text', serif;
+  line-height: 1.6;
+  animation: nx-fadein 0.22s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* Bot — estilo .mock-mission / cards del mockup */
+.nx-msg-bot {
+  background: linear-gradient(145deg, #1C1510, #2A1F16);
+  color: #F0DEB0;
+  border: 1px solid rgba(200,134,10,0.2);
+  border-left: 2px solid #8B5E00;
+  align-self: flex-start;
+}
+
+/* Usuario — estilo .nbv-btn-danger del mockup */
+.nx-msg-user {
+  background: linear-gradient(135deg, #7A0010, #A81020);
+  color: #F0DEB0;
+  border: 1px solid rgba(168,16,32,0.4);
+  align-self: flex-end;
+}
+
+/* Timestamp — escala XS del mockup */
+.nx-msg-time {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  opacity: 0.4;
+  align-self: flex-end;
+  text-transform: uppercase;
+}
+
+/* ══ TYPING ════════════════════════════════════════════════ */
+#nx-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 14px;
+  background: linear-gradient(145deg, #1C1510, #2A1F16);
+  border: 1px solid rgba(200,134,10,0.2);
+  border-left: 2px solid #8B5E00;
+  align-self: flex-start;
+  max-width: 72px;
+  border-radius: 1px;
+  animation: nx-fadein 0.2s ease;
+}
+
+.nx-dot {
+  width: 6px;
+  height: 6px;
+  background: #C8860A;
+  border-radius: 50%;
+  animation: nx-bounce 1.3s ease-in-out infinite;
+  opacity: 0.8;
+}
+.nx-dot:nth-child(2) { animation-delay: 0.18s; }
+.nx-dot:nth-child(3) { animation-delay: 0.36s; }
+
+/* ══ SUGERENCIAS — estilo .mock-filter del mockup ═════════ */
+#nx-suggestions {
+  display: flex;
+  gap: 5px;
+  padding: 7px 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: #120E0A;
+  border-top: 1px solid rgba(200,134,10,0.15);
+  flex-shrink: 0;
+}
+#nx-suggestions::-webkit-scrollbar { display: none; }
+
+.nx-sug {
+  background: transparent;
+  color: #C8860A;
+  border: 1px solid rgba(200,134,10,0.2);
+  border-radius: 1px;
+  padding: 0.3rem 0.7rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  white-space: nowrap;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.nx-sug:hover {
+  background: rgba(200,134,10,0.1);
+  border-color: #C8860A;
+  color: #F5C842;
+}
+
+/* ══ INPUT — estilo .nbv-input del mockup ══════════════════ */
+#nx-input-area {
+  display: flex;
+  gap: 7px;
+  padding: 10px 12px;
+  background: #1C1510;
+  border-top: 1px solid rgba(200,134,10,0.2);
+  flex-shrink: 0;
+}
+
+#nx-input {
+  flex: 1;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(200,134,10,0.25);
+  padding: 0.6rem 1rem;
+  color: #F0DEB0;
+  font-size: 1rem;
+  font-family: 'Crimson Text', serif;
+  outline: none;
+  border-radius: 1px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-width: 0;
+}
+#nx-input:focus {
+  border-color: #C8860A;
+  box-shadow: 0 0 0 2px rgba(200,134,10,0.15), 0 0 15px rgba(200,134,10,0.1);
+}
+#nx-input::placeholder {
+  color: #4A3D32;
+  font-style: italic;
+}
+
+/* Botón enviar — estilo .nbv-btn-danger + clip-path del mockup */
+#nx-send {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #7A0010, #D42030);
+  border: 1px solid rgba(168,16,32,0.5);
+  color: #F0DEB0;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  /* Clip-path hexagonal del mockup .nbv-btn */
+  clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0% 50%);
+}
+#nx-send:hover {
+  background: #D42030;
+  box-shadow: 0 0 20px rgba(168,16,32,0.5);
+  filter: brightness(1.1);
+}
+
+/* ══ ANIMACIONES ════════════════════════════════════════════ */
+@keyframes nx-spin   { to { transform: rotate(360deg); } }
+@keyframes nx-pulse  { 0% { transform:scale(1); opacity:.6; } 70%,100% { transform:scale(1.6); opacity:0; } }
+@keyframes nx-bounce { 0%,80%,100% { transform:translateY(0); } 40% { transform:translateY(-5px); } }
+@keyframes nx-fadein { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+
+/* ══ RESPONSIVE ════════════════════════════════════════════ */
+@media (max-width: 420px) {
+  #nx-window {
+    width: calc(100vw - 24px);
+    height: calc(100dvh - 100px);
+    bottom: 16px;
+    right: 12px;
+  }
+  #nx-orb { bottom: 16px; right: 16px; }
+}
