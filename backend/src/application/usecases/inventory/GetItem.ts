@@ -1,18 +1,13 @@
-
-
-import { IItemRepository, ItemFilters } from '../../../domain/repositories/IItemRepository';
+// application/usecases/inventory/GetItems.ts
+import { IItemRepository,ItemFilters } from "../../../domain/repositories/IItemRepository";
 
 export class GetItems {
-  constructor(private readonly itemRepository: IItemRepository) {}
-
-  async execute(filters: ItemFilters): Promise<{ items: any[]; total: number; page: number; totalPages: number }> {
+  constructor(private itemRepository: IItemRepository) {}
+  
+  async execute(filters: ItemFilters) {
+    console.log('🎯 Filtros recibidos:', filters);
     const result = await this.itemRepository.findAll(filters);
-
-    return {
-      items: result.items.map(item => item.toPublic()),
-      total: result.total,
-      page: filters.page,
-      totalPages: Math.ceil(result.total / filters.limit),
-    };
+    console.log(`📦 Encontrados ${result.items.length} items de ${result.total}`);
+    return result;
   }
 }

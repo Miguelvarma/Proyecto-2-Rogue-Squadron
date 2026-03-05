@@ -46,7 +46,6 @@ export interface DeleteItemResponse {
 }
 
 export const inventoryApi = {
-  // GET /api/v1/inventory?tipo=&rareza=&page=1&limit=16
   getItems: async (filters: Filters = {}): Promise<PaginatedResponse<Item>> => {
     const params = new URLSearchParams();
     if (filters.tipo) params.append('tipo', filters.tipo);
@@ -58,19 +57,16 @@ export const inventoryApi = {
     return response.data;
   },
 
-  // GET /api/v1/inventory/search?q=espada
   searchItems: async (query: string): Promise<SearchResponse> => {
     const response = await apiClient.get<SearchResponse>(`/inventory/search?q=${encodeURIComponent(query)}`);
     return response.data;
   },
 
-  // GET /api/v1/inventory/:id
   getItemById: async (id: string): Promise<ItemDetailResponse> => {
     const response = await apiClient.get<ItemDetailResponse>(`/inventory/${id}`);
     return response.data;
   },
 
-  // DELETE /api/v1/inventory/:id
   deleteItem: async (id: string): Promise<DeleteItemResponse> => {
     const response = await apiClient.delete<DeleteItemResponse>(`/inventory/${id}`);
     return response.data;

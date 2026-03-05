@@ -3,9 +3,14 @@ import { InventoryController } from '../controllers/InventoryController';
 import { authenticateJWT } from '../middlewares/auth.middleware';
 import { validateQuery } from '../middlewares/validation.middleware';
 import { SearchQuerySchema, GetItemsQuerySchema } from '../schemas/inventory.schemas';
+import { inventoryLimiter, generalLimiter } from '../../http/middlewares/rateLimiter.middleware'; // 🔴 Importar limiters
 
 export const createInventoryRoutes = (controller: InventoryController): Router => {
   const router = Router();
+
+  // 🔴 APLICAR RATE LIMITING A TODAS LAS RUTAS DE INVENTARIO
+  // El limiter específico para inventario (más permisivo)
+  router.use(inventoryLimiter);
 
   /**
    * @route   GET /api/v1/inventory/search

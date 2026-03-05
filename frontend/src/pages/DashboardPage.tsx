@@ -1,59 +1,52 @@
+// src/pages/DashboardPage.tsx
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
-import { useMyProfile, useMyInventory, useActiveMissions } from '@/hooks';
+// 🔴 COMENTAR O ELIMINAR LOS HOOKS QUE YA NO EXISTEN
+// import { useMyProfile, useMyInventory, useActiveMissions } from '@/hooks';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const { user } = useAuthStore();
-  const { data: profile, loading: profileLoading } = useMyProfile();
-  const { data: inventory, loading: inventoryLoading } = useMyInventory();
-  const { data: missions, loading: missionsLoading } = useActiveMissions();
+  // const { data: profile } = useMyProfile();
+  // const { data: inventory } = useMyInventory();
+  // const { data: missions } = useActiveMissions();
 
-  // Si no está autenticado, redirigir
   useEffect(() => {
     if (!user) {
       navigate('/login');
     }
   }, [user, navigate]);
 
-  // Función para obtener el saludo según la hora
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'Buenos días';
-    if (hour < 18) return 'Buenas tardes';
-    return 'Buenas noches';
-  };
-
-  // Stats rápidos
+  // Stats rápidos (usando datos quemados por ahora)
   const quickStats = [
     {
       label: 'Items en inventario',
-      value: inventory?.length || 0,
+      value: '12',
       icon: '🎒',
       color: 'var(--color-gold)',
       link: '/inventory'
     },
     {
       label: 'Misiones activas',
-      value: missions?.length || 0,
+      value: '3',
       icon: '⚔️',
       color: 'var(--color-arcane-bright)',
       link: '/missions'
     },
     {
       label: 'Rango',
-      value: profile?.rol || 'PLAYER',
+      value: 'Jugador',
       icon: '👑',
       color: 'var(--color-emerald-bright)',
       link: '/profile'
     },
     {
-      label: 'Subastas',
-      value: 'Activas',
-      icon: '💰',
+      label: 'Victorias',
+      value: '47',
+      icon: '🏆',
       color: 'var(--color-ice-bright)',
-      link: '/auctions'
+      link: '/rankings'
     }
   ];
 
@@ -102,7 +95,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div style={{
+    <div className="dashboard-page" style={{
       minHeight: '100vh',
       background: 'var(--color-abyss)',
       padding: '2rem'
@@ -123,18 +116,18 @@ export default function DashboardPage() {
             marginBottom: '0.5rem',
             filter: 'drop-shadow(0 0 20px rgba(200,134,10,0.3))'
           }}>
-            {getGreeting()}, {profile?.apodo || user?.apodo || 'Aventurero'}
+            Bienvenido, {user?.apodo || 'Aventurero'}
           </h1>
           <p style={{
             color: 'var(--color-parchment-dim)',
             fontSize: '1.1rem',
             fontStyle: 'italic'
           }}>
-            Bienvenido al Nexus Battles V
+            El Nexus te espera
           </p>
         </div>
 
-        {/* Stats rápidas */}
+        {/* Stats rápidas quemadas */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -181,7 +174,7 @@ export default function DashboardPage() {
                   fontFamily: 'var(--font-heading)',
                   lineHeight: 1
                 }}>
-                  {typeof stat.value === 'number' ? stat.value : stat.value}
+                  {stat.value}
                 </div>
                 <div style={{
                   color: 'var(--color-parchment-dim)',
@@ -275,128 +268,7 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        {/* Actividad reciente / Noticias */}
-        <div style={{
-          background: 'var(--color-stone-dark)',
-          border: '1px solid rgba(200,134,10,0.2)',
-          padding: '2rem'
-        }}>
-          <h3 style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: '1.2rem',
-            color: 'var(--color-gold)',
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            <span>📜</span> Tablón de anuncios
-          </h3>
-          
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem'
-          }}>
-            <div style={{
-              padding: '1rem',
-              background: 'rgba(0,0,0,0.3)',
-              border: '1px solid rgba(200,134,10,0.1)'
-            }}>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '0.5rem'
-              }}>
-                <span style={{
-                  color: 'var(--color-gold)',
-                  fontWeight: 'bold'
-                }}>
-                  ⚔️ Torneo de la semana
-                </span>
-                <span style={{
-                  color: 'var(--color-parchment-dim)',
-                  fontSize: '0.8rem'
-                }}>
-                  Hace 2 horas
-                </span>
-              </div>
-              <p style={{
-                color: 'var(--color-parchment)',
-                fontSize: '0.9rem'
-              }}>
-                ¡Inscripciones abiertas! Grandes premios esperan a los valientes.
-              </p>
-            </div>
-
-            <div style={{
-              padding: '1rem',
-              background: 'rgba(0,0,0,0.3)',
-              border: '1px solid rgba(200,134,10,0.1)'
-            }}>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '0.5rem'
-              }}>
-                <span style={{
-                  color: 'var(--color-arcane-bright)',
-                  fontWeight: 'bold'
-                }}>
-                  🔮 Nuevas misiones disponibles
-                </span>
-                <span style={{
-                  color: 'var(--color-parchment-dim)',
-                  fontSize: '0.8rem'
-                }}>
-                  Ayer
-                </span>
-              </div>
-              <p style={{
-                color: 'var(--color-parchment)',
-                fontSize: '0.9rem'
-              }}>
-                Se han agregado 5 misiones épicas al reino.
-              </p>
-            </div>
-
-            <div style={{
-              padding: '1rem',
-              background: 'rgba(0,0,0,0.3)',
-              border: '1px solid rgba(200,134,10,0.1)'
-            }}>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '0.5rem'
-              }}>
-                <span style={{
-                  color: 'var(--color-emerald-bright)',
-                  fontWeight: 'bold'
-                }}>
-                  🎒 Actualización del inventario
-                </span>
-                <span style={{
-                  color: 'var(--color-parchment-dim)',
-                  fontSize: '0.8rem'
-                }}>
-                  Hace 3 días
-                </span>
-              </div>
-              <p style={{
-                color: 'var(--color-parchment)',
-                fontSize: '0.9rem'
-              }}>
-                Ahora puedes filtrar y buscar tus ítems más fácilmente.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer con logout */}
+        {/* Botón de logout */}
         <div style={{
           marginTop: '3rem',
           textAlign: 'center',

@@ -1,4 +1,4 @@
-import { apiClient } from './client';
+/*import { apiClient } from './client';
 import { PublicPlayer, InventoryItem, ApiResponse } from '@/types';
 
 export const playersApi = {
@@ -17,3 +17,4 @@ export const playersApi = {
   getById: (id: string) =>
     apiClient.get<ApiResponse<PublicPlayer>>(`/players/${id}`),
 };
+*/

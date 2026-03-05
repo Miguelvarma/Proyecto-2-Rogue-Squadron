@@ -1,4 +1,4 @@
-import { Mission } from '../../domain/entities/Mission';
+import { Mission } from '../domain/entities/Mission';
 
 export interface PlayerContext {
   playerId: string;

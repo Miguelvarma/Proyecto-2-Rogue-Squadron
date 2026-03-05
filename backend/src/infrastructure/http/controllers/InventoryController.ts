@@ -5,6 +5,7 @@ import { GetItemById } from '../../../application/usecases/inventory/GetItemById
 import { DeleteItem } from '../../../application/usecases/inventory/DeleteItem';
 import { AuthRequest } from '../middlewares/auth.middleware';
 import { logInventoryEvent } from '../../logging/logger';
+import { ItemFilters } from '../../../domain/repositories/IItemRepository';
 
 export class InventoryController {
   constructor(
@@ -33,22 +34,22 @@ export class InventoryController {
     }
   };
 
-  list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-      const { tipo, rareza, page, limit } = req.query;
-
-      const result = await this.getItems.execute({
-        tipo: tipo as string | undefined,
-        rareza: rareza as string | undefined,
-        page: parseInt(page as string) || 1,
-        limit: parseInt(limit as string) || 16,
-      });
-
-      res.status(200).json(result);
-    } catch (error) {
-      next(error);
-    }
-  };
+list = async (req: Request, res: Response) => {
+  try {
+    const filters: ItemFilters = {
+      tipo: req.query.tipo as string,
+      rareza: req.query.rareza as string,
+      page: req.query.page ? parseInt(req.query.page as string) : 1,
+      limit: req.query.limit ? parseInt(req.query.limit as string) : 16
+    };
+    
+    const result = await this.getItems.execute(filters);
+    res.json(result);
+  } catch (error) {
+    console.error('Error en list:', error);
+    res.status(500).json({ error: 'Error al obtener items' });
+  }
+};
 
  getById = async (
   req: Request<{ id: string }>,

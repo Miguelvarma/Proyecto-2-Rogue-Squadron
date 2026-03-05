@@ -1,3 +1,5 @@
+/*
+
 import { apiClient } from './client';
 import { Mission, MissionDifficulty, ApiResponse } from '@/types';
 
@@ -14,3 +16,6 @@ export const missionsApi = {
   complete: (missionId: string) =>
     apiClient.post<ApiResponse<Mission>>(`/missions/${missionId}/complete`),
 };
+
+
+*/

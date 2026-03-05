@@ -5,6 +5,7 @@ import { config } from '../src/config/index,';
 import { logger } from './infrastructure/logging/logger';
 import { errorHandler } from './infrastructure/http/middlewares/errorHandler.middleware';
 import { generalLimiter } from './infrastructure/http/middlewares/rateLimiter.middleware';
+import { MySQLItemRepository } from './infrastructure/repositories/MySQLItemRepository';
 
 // Adaptadores
 import { UserRepositoryMySQL } from './infrastructure/persitence/repositories/UserRepositoryMysql';
@@ -30,13 +31,21 @@ import { InventoryController } from './infrastructure/http/controllers/Inventory
 import { createAuthRoutes } from './infrastructure/http/routes/auth.routes';
 import { createInventoryRoutes } from './infrastructure/http/routes/inventory.routes';
 
+
+//Ratings
+import { createRatingRoutes } from './infrastructure/http/routes/rating.routes';
+import { RatingController } from './infrastructure/http/controllers/RatingController';
+import { RatingService } from './domain/services/RatingService';
+import { MySQLRatingRepository } from './infrastructure/repositories/MySQLRatingRepository';
+import { MySQLProductRepository } from './infrastructure/repositories/MySQLProductRepository';
+
 // ============================================
 // DEPENDENCY INJECTION
 // ============================================
 
 // Repositories
 const userRepository = new UserRepositoryMySQL();
-const itemRepository = new ItemRepositoryMySQL();
+const itemRepository = new MySQLItemRepository();
 
 // Services
 const passwordHasher = new BcryptHasher();
@@ -72,6 +81,13 @@ const inventoryController = new InventoryController(
   getItemById,
   deleteItem
 );
+
+//Ratings
+const ratingRepository = new MySQLRatingRepository();
+const productRepository = new MySQLProductRepository();
+const ratingService = new RatingService(ratingRepository, productRepository);
+const ratingController = new RatingController(ratingService);
+
 
 // ============================================
 // EXPRESS APP
@@ -115,6 +131,9 @@ app.get('/health', (req, res) => {
 app.use('/api/v1/auth', createAuthRoutes(authController));
 app.use('/api/v1/inventory', createInventoryRoutes(inventoryController));
 
+// ✅ RUTAS DE RATINGS (NUEVO)
+app.use('/api/v1', createRatingRoutes(ratingController));
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Ruta no encontrada' });
@@ -149,6 +168,11 @@ if (config.NODE_ENV !== 'test') {
     console.log('     ├─ GET  /api/v1/inventory?tipo=&rareza= (Listar con filtros)');
     console.log('     ├─ GET  /api/v1/inventory/:id           (Detalle)');
     console.log('     └─ DELETE /api/v1/inventory/:id         (SCRUM-37)');
+    console.log('  │');
+    console.log('  ┌─ Calificaciones (NUEVO)');
+    console.log('  │  ├─ GET  /api/v1/products/:id/rating     (Ver calificaciones)');
+    console.log('  │  └─ POST /api/v1/products/:id/rate       (Calificar producto)');
+    console.log('  │');
     console.log('═'.repeat(70));
     console.log('Cumplimiento: Módulo 6.1 - Inventario de Jugador');
     console.log('Arquitectura según documento oficial v2.0\n');

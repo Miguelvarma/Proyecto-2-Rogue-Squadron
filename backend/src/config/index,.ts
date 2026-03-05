@@ -1,3 +1,4 @@
+// src/config/index.ts
 import { z } from 'zod';
 import dotenv from 'dotenv';
 
@@ -13,7 +14,7 @@ const ConfigSchema = z.object({
   DB_USER: z.string().min(1),
   DB_PASSWORD: z.string().min(1),
   
-  JWT_SECRET: z.string().min(64, 'JWT_SECRET mínimo 64 caracteres'),
+  JWT_SECRET: z.string().min(64),
   JWT_REFRESH_SECRET: z.string().min(64),
   JWT_EXPIRES_IN: z.string().default('15m'),
   JWT_REFRESH_EXPIRES_IN: z.string().default('7d'),
@@ -25,8 +26,9 @@ const ConfigSchema = z.object({
   CORS_ORIGIN: z.string().url(),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
   
-  RATE_LIMIT_WINDOW_MS: z.string().transform(Number).default(900000),
-  RATE_LIMIT_MAX_REQUESTS: z.string().transform(Number).default(100),
+  // 🔴 AUMENTAR ESTOS VALORES
+  RATE_LIMIT_WINDOW_MS: z.string().transform(Number).default(900000), // 15 min
+  RATE_LIMIT_MAX_REQUESTS: z.string().transform(Number).default(1000), // 🔴 1000 en lugar de 100
 });
 
 const parseConfig = () => {
