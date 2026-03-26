@@ -1,0 +1,152 @@
+{
+  "comment": "EJEMPLOS DE PAYLOADS JSON PARA TESTING - Copia en tu backend",
+  "product_detail_example": {
+    "product": {
+      "id": "hero-001",
+      "name": "Kael'thara, Portadora del Abismo",
+      "imageUrl": "https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=800&q=80",
+      "type": "Héroe",
+      "rarity": "epic",
+      "description": "Antigua guerrera de las Tierras Sombrías, bendecida por los dioses del abismo. Su poder crece con cada batalla, absorbiendo la esencia de los caídos para fortalecer su armadura etérea. Perfecta para jugadores agresivos que buscan dominar en el mid-game.",
+      "avgRating": 4.5,
+      "reviewCount": 128,
+      "skills": [
+        {
+          "name": "Golpe Sombrío",
+          "description": "Inflige 320% del daño de ataque en un área de 2x2 casillas. Genera 1 punto de Sed de Poder por cada enemigo golpeado.",
+          "manaCost": 40
+        },
+        {
+          "name": "Armadura Etérea",
+          "description": "Reduce el daño recibido en un 35% durante 3 turnos. Los aliados cercanos reciben 15% de reducción de daño.",
+          "manaCost": 25
+        },
+        {
+          "name": "Grito de Batalla",
+          "description": "Aumenta el ataque de todos los aliados en un 20% durante 4 turnos. Costo progresivo basado en número de aliados.",
+          "manaCost": 60
+        },
+        {
+          "name": "Hambre del Abismo",
+          "description": "Habilidad pasiva: Cada ataque exitoso restaura 8% de HP máximo.",
+          "manaCost": null
+        }
+      ],
+      "effects": [
+        {
+          "name": "Vampirismo",
+          "type": "buff"
+        },
+        {
+          "name": "Regeneración MP",
+          "type": "buff"
+        },
+        {
+          "name": "Reducción de Magia",
+          "type": "debuff"
+        },
+        {
+          "name": "Liderazgo",
+          "type": "passive"
+        }
+      ],
+      "stats": {
+        "HP": 98,
+        "Attack": 87,
+        "Defense": 74,
+        "Speed": 65,
+        "Mana": 80,
+        "CritChance": 42
+      }
+    },
+    "auction": {
+      "id": "auc-4821",
+      "currentBid": 1850,
+      "minBid": 1500,
+      "buyNowPrice": 3200,
+      "bidCount": 17,
+      "endsAt": "2025-11-20T14:30:00Z",
+      "seller": {
+        "id": "seller-123",
+        "nickname": "ShadowMaster_X",
+        "rating": 4.8,
+        "reviewCount": 342
+      }
+    },
+    "comments": [
+      {
+        "id": "comment-001",
+        "nickname": "DragonSlayer99",
+        "userId": "user-456",
+        "rating": 5,
+        "text": "Absolutamente devastadora en el mid-game. Su habilidad de vampirismo la hace casi imposible de matar si la combinas con objetos de ataque. Totalmente recomendada para builds agresivos. He ganado 15 partidas seguidas con ella.",
+        "images": [
+          "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=120&q=60"
+        ],
+        "avatarUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=40&h=40&fit=crop",
+        "createdAt": "2025-11-14T10:23:00Z",
+        "updatedAt": "2025-11-14T10:23:00Z"
+      },
+      {
+        "id": "comment-002",
+        "nickname": "NexusWitch",
+        "userId": "user-789",
+        "rating": 4,
+        "text": "Muy buena carta pero requiere sinergia con el mazo completo. Sola no es tan potente. El arte es espectacular, la portada hace honor a su descripción. Recomienda empareja con Orcos Oscuros.",
+        "images": [],
+        "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop",
+        "createdAt": "2025-10-28T08:15:00Z",
+        "updatedAt": "2025-10-28T08:15:00Z"
+      },
+      {
+        "id": "comment-003",
+        "nickname": "IronGuard_tz",
+        "userId": "user-321",
+        "rating": 4,
+        "text": "La usé en el torneo de la semana pasada y gané 3 de 4 batallas. El grito de batalla es un game-changer en combates grupales. Defensa un poco baja para mi gusto.",
+        "images": [
+          "https://images.unsplash.com/photo-1538235500687-d625272e8a78?w=120&q=60"
+        ],
+        "avatarUrl": null,
+        "createdAt": "2025-10-05T14:00:00Z",
+        "updatedAt": "2025-10-06T09:30:00Z"
+      }
+    ]
+  },
+  "post_bid_request": {
+    "amount": 2000
+  },
+  "post_bid_response": {
+    "success": true,
+    "message": "Puja registrada exitosamente",
+    "currentBid": 2000,
+    "bidCount": 18,
+    "nextMinBid": 2010
+  },
+  "error_404": {
+    "error": "Product not found",
+    "status": 404,
+    "message": "El producto con ID 'invalid-id' no existe"
+  },
+  "error_401": {
+    "error": "Unauthorized",
+    "status": 401,
+    "message": "Debes iniciar sesión para pujar"
+  },
+  "error_409_conflict": {
+    "error": "Conflict",
+    "status": 409,
+    "message": "Ya existe una puja más alta para este producto"
+  },
+  "notes": {
+    "formato_fecha": "ISO 8601 con timezone Z (UTC)",
+    "imagenes_comentarios": "URLs públicas sin restricciones CORS",
+    "validacion_puja": "amount debe ser integer > currentBid + MIN_INCREMENT",
+    "rareza_valores": ["common", "uncommon", "rare", "epic", "legendary"],
+    "effect_type_valores": ["buff", "debuff", "passive"],
+    "stats_valores": {
+      "rango": "0-100",
+      "descripcion": "Valores normalizados para rendering de barras de progreso"
+    }
+  }
+}
