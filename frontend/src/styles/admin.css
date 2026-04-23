@@ -1,0 +1,691 @@
+/* admin.css - THE NEXUS BATTLES V - Panel de Administración */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ══ CONTAINER PRINCIPAL ════════════════════════════════════════════════════ */
+.admin-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--abyss) 0%, var(--dungeon) 100%);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.admin-container::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.admin-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ══ HEADER ════════════════════════════════════════════════════════════════ */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: linear-gradient(145deg, rgba(28,21,16,0.95), rgba(18,14,10,0.95));
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 2rem;
+  border-radius: 1px;
+  border: 1px solid rgba(200,134,10,0.2);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.admin-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 0 20px rgba(200,134,10,0.3);
+}
+
+.admin-subtitle {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  color: var(--parchment-dim);
+  font-size: 0.875rem;
+}
+
+/* ══ BOTONES ═══════════════════════════════════════════════════════════════ */
+.create-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.4rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, var(--gold-deep), var(--gold-dark));
+  border: 1px solid var(--gold-dark);
+  color: var(--gold-light);
+  cursor: pointer;
+  transition: all 250ms ease;
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0% 50%);
+  box-shadow: 0 0 15px rgba(200,134,10,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.create-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.04);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.create-btn:hover::before {
+  opacity: 1;
+}
+
+.create-btn:hover {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  border-color: var(--gold);
+  box-shadow: 0 0 25px rgba(200,134,10,0.5);
+  transform: translateY(-1px);
+}
+
+/* ══ STATS CARDS ═══════════════════════════════════════════════════════════ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: linear-gradient(145deg, rgba(28,21,16,0.9), rgba(18,14,10,0.9));
+  border-radius: 1px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgba(200,134,10,0.2);
+  transition: all 250ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border-right: 1px solid var(--gold-dark);
+  border-bottom: 1px solid var(--gold-dark);
+}
+
+.stat-card:hover {
+  border-color: rgba(200,134,10,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(200,134,10,0.15);
+}
+
+.stat-icon {
+  font-size: 2rem;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  text-shadow: 0 0 10px rgba(200,134,10,0.3);
+}
+
+.stat-label {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rune-gray);
+}
+
+/* ══ SECCIONES ═════════════════════════════════════════════════════════════ */
+.admin-content {
+  background: linear-gradient(145deg, rgba(18,14,10,0.8), rgba(10,7,5,0.8));
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(200,134,10,0.15);
+  overflow: hidden;
+}
+
+.create-section,
+.list-section {
+  padding: 1.5rem;
+}
+
+.section-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  border-left: 3px solid var(--gold);
+  padding-left: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ══ FORMULARIO ════════════════════════════════════════════════════════════ */
+.hero-form {
+  max-width: 800px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field.full-width {
+  grid-column: span 2;
+}
+
+.form-field label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid var(--stone-light);
+  color: var(--parchment);
+  font-family: 'Crimson Text', serif;
+  font-size: 0.95rem;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  outline: none;
+  border-radius: 1px;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--gold-dark);
+  box-shadow: 0 0 12px rgba(200,134,10,0.2), inset 0 0 12px rgba(0,0,0,0.2);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: var(--rune-gray);
+  font-style: italic;
+}
+
+/* ══ SELECTOR DE ESTRELLAS ═════════════════════════════════════════════════ */
+.stars-selector {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.star {
+  background: rgba(28,21,16,0.8);
+  border: 1px solid var(--stone-light);
+  font-size: 1.25rem;
+  color: var(--rune-gray);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: all 200ms ease;
+}
+
+.star.active {
+  color: var(--gold);
+  border-color: var(--gold);
+  text-shadow: 0 0 10px rgba(200,134,10,0.5);
+}
+
+.star:hover {
+  transform: scale(1.1);
+  color: var(--gold-light);
+}
+
+/* ══ SUBIDA DE IMAGENES ════════════════════════════════════════════════════ */
+.image-upload-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.image-input-hidden {
+  display: none;
+}
+
+.image-upload-label {
+  display: inline-block;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid var(--stone-light);
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  text-align: center;
+  color: var(--rune-gray);
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 250ms ease;
+}
+
+.image-upload-label:hover {
+  border-color: var(--gold-dark);
+  color: var(--gold);
+  background: rgba(200,134,10,0.1);
+}
+
+.image-preview {
+  position: relative;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.image-preview img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 1px solid var(--stone-light);
+}
+
+.remove-image {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--blood);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  transition: all 200ms ease;
+}
+
+.remove-image:hover {
+  background: var(--crimson);
+  transform: scale(1.1);
+}
+
+/* ══ BOTONES DE ACCION ═════════════════════════════════════════════════════ */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(200,134,10,0.2);
+}
+
+.btn-cancel {
+  background: rgba(28,21,16,0.8);
+  border: 1px solid var(--stone-light);
+  padding: 0.55rem 1.4rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rune-gray);
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+
+.btn-cancel:hover {
+  border-color: var(--gold-dark);
+  color: var(--gold);
+  background: rgba(200,134,10,0.1);
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, var(--gold-deep), var(--gold-dark));
+  border: 1px solid var(--gold-dark);
+  padding: 0.55rem 1.4rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  cursor: pointer;
+  transition: all 250ms ease;
+  box-shadow: 0 0 15px rgba(200,134,10,0.25);
+}
+
+.btn-submit:hover {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  box-shadow: 0 0 25px rgba(200,134,10,0.5);
+  transform: translateY(-1px);
+}
+
+/* ══ TABLA DE HEROES ═══════════════════════════════════════════════════════ */
+.heroes-table-wrapper {
+  overflow-x: auto;
+}
+
+.heroes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.heroes-table th {
+  text-align: left;
+  padding: 0.875rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  border-bottom: 1px solid rgba(200,134,10,0.2);
+}
+
+.heroes-table td {
+  padding: 0.875rem;
+  font-family: 'Crimson Text', serif;
+  font-size: 0.85rem;
+  color: var(--parchment-dim);
+  border-bottom: 1px solid rgba(200,134,10,0.1);
+}
+
+.heroes-table tr:hover {
+  background: rgba(200,134,10,0.05);
+}
+
+.hero-name {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  color: var(--parchment);
+}
+
+.price {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.stars-display {
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+
+/* ══ BADGES DE TIPO ════════════════════════════════════════════════════════ */
+.type-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid;
+  border-radius: 1px;
+}
+
+.type-badge.guerrero {
+  background: rgba(200,134,10,0.12);
+  border-color: rgba(200,134,10,0.4);
+  color: var(--gold-light);
+}
+
+.type-badge.mago {
+  background: rgba(74,21,128,0.15);
+  border-color: rgba(123,53,208,0.4);
+  color: var(--arcane-glow);
+}
+
+.type-badge.arquero {
+  background: rgba(26,140,69,0.12);
+  border-color: rgba(26,140,69,0.35);
+  color: var(--emerald-bright);
+}
+
+.type-badge.tanque {
+  background: rgba(26,127,170,0.12);
+  border-color: rgba(26,127,170,0.35);
+  color: var(--ice-bright);
+}
+
+.type-badge.asesino {
+  background: rgba(168,16,32,0.12);
+  border-color: rgba(168,16,32,0.4);
+  color: #FF8A8A;
+}
+
+/* ══ AVATARES ══════════════════════════════════════════════════════════════ */
+.image-cell {
+  width: 55px;
+}
+
+.hero-avatar {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border: 1px solid var(--stone-light);
+}
+
+.hero-avatar-placeholder {
+  width: 45px;
+  height: 45px;
+  background: rgba(28,21,16,0.8);
+  border: 1px solid var(--stone-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+/* ══ BOTONES DE ACCION EN TABLA ═════════════════════════════════════════════ */
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-edit,
+.action-delete {
+  background: rgba(28,21,16,0.8);
+  border: 1px solid var(--stone-light);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: all 200ms ease;
+}
+
+.action-edit {
+  color: var(--gold-dark);
+}
+
+.action-edit:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: scale(1.05);
+}
+
+.action-delete {
+  color: var(--blood);
+}
+
+.action-delete:hover {
+  border-color: var(--crimson);
+  color: var(--crimson-bright);
+  transform: scale(1.05);
+}
+
+/* ══ ESTADOS DE CARGA ══════════════════════════════════════════════════════ */
+.loading-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--rune-gray);
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--rune-gray);
+}
+
+.empty-state p {
+  margin-bottom: 1rem;
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+}
+
+/* ══ SCROLLBAR ═════════════════════════════════════════════════════════════ */
+.admin-container ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-container ::-webkit-scrollbar-track {
+  background: var(--stone-dark);
+}
+
+.admin-container ::-webkit-scrollbar-thumb {
+  background: var(--gold-dark);
+  border-radius: 3px;
+}
+
+.admin-container ::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* ══ RESPONSIVE ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 1rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-field.full-width {
+    grid-column: span 1;
+  }
+  
+  .admin-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .heroes-table th,
+  .heroes-table td {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+/* admin.css - Agregar estos estilos */
+
+.image-upload-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.image-input-hidden {
+  display: none;
+}
+
+.image-upload-label {
+  display: inline-block;
+  background: #1a1a2e;
+  border: 1px solid #2a1f3d;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  text-align: center;
+  color: #a855f7;
+  transition: all 0.3s;
+}
+
+.image-upload-label:hover {
+  background: #2a1f3d;
+  border-color: #7c3aed;
+}
+
+.image-preview {
+  position: relative;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.image-preview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #2a1f3d;
+}
+
+.remove-image {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.image-cell {
+  width: 60px;
+}
+
+.hero-avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.hero-avatar-placeholder {
+  width: 50px;
+  height: 50px;
+  background: #1a1a2e;
+  border: 1px solid #2a1f3d;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}

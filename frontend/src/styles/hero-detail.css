@@ -1,0 +1,256 @@
+/* frontend/src/styles/hero-detail.css */
+.hero-detail-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.hero-detail-card {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  border: 2px solid;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.back-btn {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #C8860A;
+  color: #C8860A;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.back-btn:hover {
+  background: #C8860A;
+  color: white;
+}
+
+.hero-rarity {
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  color: #1a1a2e;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.detail-body {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .detail-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.detail-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 2rem;
+  min-height: 300px;
+}
+
+.detail-image img {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.detail-icon {
+  font-size: 5rem;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detail-category-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(200,134,10,0.2), rgba(200,134,10,0.05));
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  color: #C8860A;
+  letter-spacing: 1px;
+  width: fit-content;
+}
+
+.detail-name {
+  font-size: 2rem;
+  margin: 0;
+  background: linear-gradient(135deg, #fff, #C8860A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.detail-description {
+  color: #B89A6A;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.detail-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 0.5rem 0;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.stat-icon {
+  font-size: 1rem;
+}
+
+.stat-value {
+  font-weight: bold;
+  color: #F5C842;
+  font-size: 0.9rem;
+}
+
+.stat-label {
+  color: #B89A6A;
+  font-size: 0.7rem;
+  margin-left: auto;
+}
+
+.detail-abilities {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 0.5rem 0;
+}
+
+.detail-abilities h3 {
+  color: #C8860A;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.detail-abilities ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detail-abilities li {
+  color: #B89A6A;
+  padding: 0.3rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.detail-abilities li::before {
+  content: "⚡";
+  position: absolute;
+  left: 0;
+}
+
+.detail-weapon {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 0.5rem 0;
+}
+
+.detail-weapon h3 {
+  color: #C8860A;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.weapon-card {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.8rem;
+  border-radius: 8px;
+}
+
+.weapon-card h4 {
+  color: #F5C842;
+  margin-bottom: 0.3rem;
+}
+
+.weapon-card p {
+  color: #B89A6A;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.weapon-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.weapon-stats span {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  color: #C8860A;
+}
+
+.hero-loading,
+.hero-error {
+  text-align: center;
+  padding: 4rem;
+}
+
+.loading-spinner {
+  font-size: 3rem;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-error button {
+  background: #C8860A;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.hero-error button:hover {
+  background: #a06e08;
+}

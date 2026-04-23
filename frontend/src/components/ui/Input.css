@@ -1,0 +1,23 @@
+.nbv-input{
+  width: 100%;
+  padding: .7rem .9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(200,134,10,0.25);
+  background: rgba(0,0,0,0.25);
+  color: var(--color-parchment, #e7dfcf);
+  outline: none;
+  transition: border-color .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.nbv-input:focus{
+  border-color: rgba(200,134,10,0.55);
+  box-shadow: 0 0 0 4px rgba(200,134,10,0.12);
+  background: rgba(0,0,0,0.30);
+}
+.nbv-input.error{
+  border-color: rgba(255,77,93,0.55);
+  box-shadow: 0 0 0 4px rgba(255,77,93,0.10);
+}
+.nbv-input::placeholder{
+  color: rgba(231,223,207,0.55);
+}
+
