@@ -1,0 +1,163 @@
+@startuml InventoryModule_ComponentDiagram
+!theme plain
+
+skinparam backgroundColor #FAFAFA
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 11
+
+skinparam node {
+  BackgroundColor #EEF4FF
+  BorderColor #4A6FA5
+  BorderThickness 2
+  FontColor #1A2E5A
+  FontSize 13
+  FontStyle bold
+  shadowing false
+}
+skinparam component {
+  BackgroundColor #DDEEFF
+  BorderColor #4A6FA5
+  FontColor #1A2E5A
+  FontSize 10
+  shadowing false
+}
+skinparam package {
+  BackgroundColor #F5F8FF
+  BorderColor #7A9CC5
+  BorderThickness 1
+  FontColor #1A2E5A
+  FontSize 11
+  FontStyle bold
+  shadowing false
+}
+skinparam interface {
+  BackgroundColor #FFFFFF
+  BorderColor #EF9F27
+  FontColor #1A2E5A
+}
+skinparam database {
+  BackgroundColor #FFF8E1
+  BorderColor #B8860B
+  FontColor #3A2A00
+}
+skinparam arrow {
+  Color #4A6FA5
+  FontSize 9
+  FontColor #334466
+}
+
+' ===========================
+' NODO: MÁQUINA CLIENTE
+' ===========================
+node "<<Máquina Cliente>>" as ClientMachine {
+  [WebBrowser] as browser
+}
+
+' ===========================
+' NODO: SERVIDOR API
+' ===========================
+node "<<Servidor API>>\nExpress.js · Node.js >= 20" as APIServer {
+
+  ' --- Capa HTTP ---
+  package "Capa HTTP — Enrutamiento y Middleware" as HTTP #EEEDFE {
+    [inventory.routes.ts] as routes
+    [RateLimiter\nMiddleware] as ratelimiter
+    [authenticateJWT\n(auth.middleware.ts)] as authmw
+    [requireRole\n(roleMiddleware.ts)] as rolemw
+    [inventory.schemas.ts\n(Zod validation)] as schemas
+    [InventoryController] as controller
+  }
+
+  ' --- Capa Aplicación ---
+  package "Capa Aplicación — Casos de Uso" as Application #E1F5EE {
+
+    package "Inventario Global" as GlobalUC #E8F5EE {
+      [GetItems]        as uc_list
+      [GetItemById]     as uc_get
+      [SearchItems]     as uc_search
+      [CreateItem]      as uc_create
+      [UpdateItem]      as uc_update
+      [SoftDeleteItem]  as uc_soft
+      [ReactivateItem]  as uc_react
+      [DeleteItem]      as uc_del
+    }
+
+    package "Inventario Personal" as PersonalUC #D8F0E8 {
+      [GetUserInventory] as uc_user
+    }
+  }
+
+  ' --- Capa Dominio ---
+  package "Capa Dominio" as Domain #FAEEDA {
+    [Item\n(Entidad)]                         as item_ent
+    [ItemFilters · PaginatedResult\n(VOs)]    as vos
+    interface "IItemRepository"               as irepo
+  }
+
+  ' --- Capa Infraestructura ---
+  package "Capa Infraestructura" as Infra #FAECE7 {
+    [MySQLItemRepository] as mysql_repo
+    [connection.ts\n(MySQL Pool)]  as db_pool
+  }
+}
+
+' ===========================
+' NODO: BASE DE DATOS
+' ===========================
+node "<<Servidor de Base de Datos>>" as DBServer {
+  database "MySQL\nnexus_battles\nPool limit: 10" as mysql_db
+}
+
+' ===========================
+' RELACIONES
+' ===========================
+
+' Cliente → Capa HTTP
+browser ..> routes : <<HTTP/REST>>
+
+' Cadena de middleware
+routes ..> ratelimiter : intercepts
+routes ..> authmw      : autentica JWT
+routes ..> rolemw      : verifica rol
+routes ..> schemas     : valida (Zod)
+ratelimiter --> controller
+authmw      --> controller
+rolemw      --> controller
+schemas     --> controller
+routes      --> controller : delega
+
+' Controller → Casos de Uso
+controller ..> uc_list   : GET /inventory
+controller ..> uc_user   : GET /inventory/me
+controller ..> uc_get    : GET /inventory/:id
+controller ..> uc_search : GET /inventory/search
+controller ..> uc_create : POST /inventory
+controller ..> uc_update : PUT /inventory/:id
+controller ..> uc_soft   : PATCH /:id/delete
+controller ..> uc_react  : PATCH /:id/reactivate
+controller ..> uc_del    : DELETE /inventory/:id
+
+' Casos de Uso → Puerto de Dominio
+uc_list   ..> irepo : <<uses>>
+uc_user   ..> irepo : <<uses>>
+uc_get    ..> irepo : <<uses>>
+uc_search ..> irepo : <<uses>>
+uc_create ..> irepo : <<uses>>
+uc_update ..> irepo : <<uses>>
+uc_soft   ..> irepo : <<uses>>
+uc_react  ..> irepo : <<uses>>
+uc_del    ..> irepo : <<uses>>
+
+uc_create ..> item_ent : <<instancia>>
+uc_update ..> item_ent : <<modifica>>
+uc_list   ..> vos      : <<produce>>
+uc_user   ..> vos      : <<produce>>
+
+' Dominio → Infraestructura
+irepo <|.. mysql_repo : <<implements>>
+mysql_repo ..> db_pool : usa pool
+
+' Infraestructura → Base de Datos
+db_pool ..> mysql_db : <<TCP / SQL>>
+
+@enduml
